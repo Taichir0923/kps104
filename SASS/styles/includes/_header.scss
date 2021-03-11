@@ -1,0 +1,112 @@
+.header {
+    width: 100%;
+    padding: 6px 0;
+    @include flexItems(space-between, row);
+
+    .logo {
+        @include flexItems(space-between, row);
+        p {
+            @include shopName($mainBlack)
+        }
+
+        img {
+            margin: 0 5px;
+        }
+    }
+
+    i {
+        margin-right: 1.5rem;
+    }
+
+    @media (min-width: 1024px){
+        display: none;
+    }
+
+}
+
+.desktopHeader {
+    width: max-content;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+
+    ul {
+        @include flexItems(center, row);
+        color: $mainWhite;
+        li {
+            list-style: none;
+            border-bottom: $menuBorder;
+            padding: .5rem 2.5rem;
+            font-family: $alice;
+            letter-spacing: .1em;
+            font-weight: 500; 
+            transition: .3s;
+            &:hover {
+                color: $hoverGreen;
+                cursor: pointer
+            }
+        }
+
+        .logo {
+            @include flexItems(center, column);
+            margin: 1.2rem 2rem;
+            @include shopName($mainWhite);
+            p {
+                margin-top: 5px;
+                transition: .3s;
+                &:hover {
+                    color: $hoverGreen;
+                    cursor: pointer
+                }
+            }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        @include flexItems(center, row);
+    }
+
+}
+
+
+.largeHero {
+    width: 100%;
+    height: 100vh;
+    background-image: url(https://cdn.shopify.com/s/files/1/0261/4687/t/7/assets/img_homepage_slider1.jpg?v=839847293968337857);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    color: #fff !important;
+    @include flexItems(center, column);
+    @include titleSection($sacramento, italic, 36px, 54px, $whiteBorder);
+    h1 {
+        padding: 27.85px 36px;
+        padding-top: 0 !important;
+        @media(min-width: 1024px){
+            padding-bottom: 35px !important;
+        }
+    }
+
+    p {
+        transition: .3s;
+        &:hover {
+            color: $hoverGreen;
+            cursor: pointer;
+        }
+    }
+
+    @media (min-width: 640px){
+        h1 {
+            font-size: 81px;
+            padding-right: 81px;
+            padding-left: 81px;
+            padding-bottom: 12.5px;
+        }
+
+        p {
+            font-size: 72px;
+        }
+    }
+}

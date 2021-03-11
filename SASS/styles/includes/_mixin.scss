@@ -1,0 +1,32 @@
+@mixin titleSection($textfont, $fontStyle, $titleSize, $textSize, $border) {
+    h1 {
+        font-family: $playfair;
+        font-size: $titleSize;
+        text-align: center;
+        font-style: $fontStyle;
+        border-bottom: $border;
+        font-weight: 400;
+        line-height: 1;
+    }
+
+    p {
+        font-family: $textfont;
+        text-align: center;
+        font-size: $textSize;
+    }
+}
+
+@mixin flexItems ($justify, $direction) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: center;
+}
+
+@mixin shopName($ongo) {
+    letter-spacing: 0.5em;
+    font-family: $playfair;
+    font-size: 12px;
+    font-weight: 400;
+    color: $ongo;
+}
