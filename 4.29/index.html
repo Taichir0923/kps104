@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.2/tailwind.min.css" integrity="sha512-RntatPOhEcQEA81gC/esYoCkGkL7AYV7TeTPoU+R9zE44/yWxVvLIBfBSaMu78rhoDd73ZeRHXRJN5+aPEK53Q==" crossorigin="anonymous" />
+    <style>
+        .main {
+            background-image: url(https://republicsmetoolkit.com/wp-content/uploads/2019/09/steps-to-business-plan.jpg);
+        }
+
+        .todoItems:hover #btn {
+            transform: translateX(0);
+        }
+
+        .done {
+            color: black !important;
+        }
+    </style>
+</head>
+<body>
+    <main class="main bg-center bg-cover w-full h-screen flex justify-center items-center">
+        <div class="tofoContainer w-3/5 lg:w-2/5 h-4/6 rounded-3xl bg-black bg-opacity-60">
+            <div class="todoHeader w-full p-6 flex justify-center items-center">
+                <input id="input" class="px-4 py-2 w-3/5 rounded-l-3xl focus:outline-none" type="text" placeholder="Ажлаа оруулах">
+                <input id="insert" class="px-4 rounded-r-3xl cursor-pointer py-2 w-1/5 focus:outline-none bg-gray-500 text-white hover:bg-red-500 transition duration-300" type="button" value="Оруулах">
+            </div>
+
+            <div class="todoBody h-5/6 overflow-y-auto w-full p-6">
+                <!-- <div class="todoItems relative w-4/5 mx-auto flex justify-between items-center p-2 transition duration-300 hover:bg-opacity-60 rounded-xl hover:bg-gray-300 font-bold text-white cursor-pointer hover:text-black overflow-hidden mb-4">
+                    <p>ajil1</p>
+                    <button id="btn" class="absolue rounded-full border-2 border-red-500 hover:bg-red-500 hover:text-white font-bold text-red-500 transition duration-300 w-8 h-8 transform translate-x-14">&times;</button>
+                </div> -->
+            </div>
+            
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
