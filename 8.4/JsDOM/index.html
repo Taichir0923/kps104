@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    
+    <header class="w-full flex bg-green-400 text-white items-center justify-between">
+        <div class="logo pl-4">
+            <h1 class="text-3xl">Logo</h1>
+        </div>
+        <div class="menu">
+            <i class="fas fa-bars py-4 px-6 md:hidden"></i>
+            <ul class="hidden md:flex">
+                <li class="py-4 px-8 hover:bg-white hover:text-green-400 transition duration-300 cursor-pointer">Home</li>
+                <li class="py-4 px-8 hover:bg-white hover:text-green-400 transition duration-300 cursor-pointer">About</li>
+                <li class="py-4 px-8 hover:bg-white hover:text-green-400 transition duration-300 cursor-pointer">Service</li>
+                <li class="py-4 px-8 hover:bg-white hover:text-green-400 transition duration-300 cursor-pointer">Contact</li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="modal hidden fixed top-0 w-full h-screen bg-black bg-opacity-30 flex justify-center items-center">
+        <div class="modalContainer w-3/5 flex overflow-hidden flex-col justify-between bg-white rounded-3xl">
+            <div class="modal__header w-full items-center flex border-b border-gray-300 justify-between">
+                <h1 class="pl-4">Modal Title</h1>
+                <button class="py-4 transition duration-300 hover:bg-green-400 hover:text-white px-6 bg-white text-gray-600" id="close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal__body py-4">
+                <img class="w-full" src="" alt="">
+            </div>
+
+            <div class="modal__footer flex border-t border-gray-300 justify-end py-2 px-4">
+                <button class="py-2 px-6 border border-green-400 rounded-2xl mr-6 text-green-400">Cancel</button>
+                <button class="py-2 px-6 border border-green-400 rounded-2xl text-green-400">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="w-full my-6">
+        <div class="container flex flex-col h-screen items-center justify-center mx-auto">
+            <form class="w-3/5 lg:w-1/5 mb-8">
+                <label class="font-bold" for="fullname">Овог нэр</label>
+                <input class="border focus:outline-none mt-2 mb-4 w-full border-gray-400 rounded-xl py-2 px-4" type="text" id="fullname" placeholder="Овог нэр" />
+
+                <label class="font-bold" for="email">Email</label>
+                <input class="border focus:outline-none mt-2 mb-4 w-full border-gray-400 rounded-xl py-2 px-4" type="email" id="email" placeholder="Email" />
+
+                <label class="font-bold" for="number">Утасны дугаар</label>
+                <input class="border focus:outline-none mt-2 mb-4 w-full border-gray-400 rounded-xl py-2 px-4" type="number" id="number" placeholder="Утасны дугаар" />
+
+                <label class="font-bold" for="password">Нууц үг</label>
+                <input class="border focus:outline-none mt-2 mb-4 w-full border-gray-400 rounded-xl py-2 px-4" type="password" id="password" placeholder="Password" />
+
+                <label class="font-bold" for="password--confirm">Нууц үг давтах</label>
+                <input class="border focus:outline-none mt-2 mb-4 w-full border-gray-400 rounded-xl py-2 px-4" type="password" id="password--confirm" placeholder="Password confirm" />
+                <button id="btn" class="bg-green-400 text-white w-full py-2 px-4 rounded-xl" type="submit">Бүртгэх</button>
+            </form>
+
+            <div class="w-3/5 lg:w-1/5">
+                <p class="check">Жижиг үсэг орсон байх ёстой.</p>
+                <p class="check">Том үсэг орсон байх ёстой.</p>
+                <p class="check">Тоо орсон байх ёстой.</p>
+                <p class="check">Тэмдэгт орсон байх ёстой.</p>
+                <p class="check">Хамгийн багадаа 8 тэмдэгт орсон байх ёстой.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
