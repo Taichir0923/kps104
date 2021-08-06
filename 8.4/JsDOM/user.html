@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <div class="header bg-gray-900 h-96 relative">
+        <button id="logout" class="absolute text-white transition duration-300 hover:text-green-400 text-3xl right-4 top-4">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+        <div class="w-3/5 shadow-xl rounded-2xl transform left-1/2 -translate-x-1/2 bg-white -translate-y-1/2 mx-auto top-full absolute">
+            <div class="proHeader relative w-full h-48 border-b border-gray-300">
+                <div class="avatar overflow-hidden absolute left-1/2 transform -translate-x-1/2 h-48 w-48 bottom-0 translate-y-1/3 border border-gray-300 rounded-full">
+                    <img class="w-full h-full" src="https://randomuser.me/api/portraits/men/73.jpg" alt="">
+                </div>
+
+            </div>
+
+            <div class="info pt-24 text-center">
+                <p class="dummyClass text-gray-400 text-2xl">My fullname is</p>
+                <p class="font-bold text-4xl mt-2">Narada Muni</p>
+            </div>
+
+            <div class="nav py-8 mt-5 w-full flex justify-center items-center">
+                <div class="fullname px-16 cursor-pointer transition duration-300 hover:text-green-400 text-4xl">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="email px-16 cursor-pointer transition duration-300 hover:text-green-400 text-4xl">
+                    <i class="fas fa-at"></i>
+                </div>
+                <div class="number px-16 cursor-pointer transition duration-300 hover:text-green-400 text-4xl">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="password px-16 cursor-pointer transition duration-300 hover:text-green-400 text-4xl">
+                    <i class="fas fa-unlock-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const fullname = document.querySelector('.fullname');
+        const email = document.querySelector('.email');
+        const number = document.querySelector('.number');
+        const password = document.querySelector('.password');
+        const info = document.querySelector('.info');
+        const logout = document.querySelector('#logout');
+
+        
+        let user;
+
+        let posts = [];
+
+        if(localStorage['loggedIn']){
+            user = JSON.parse(localStorage['loggedIn']);
+            document.title = user.fullname;
+        } else {
+            location.href = "http://127.0.0.1:5500/login.html"
+        };
+
+        fullname.addEventListener('mouseover', () => {
+            createEl(user, ['fullname'])
+        });
+
+        email.addEventListener('mouseover', () => {
+            createEl(user, ['email'])
+        });
+
+        number.addEventListener('mouseover', () => {
+            createEl(user, ['number'])
+        });
+
+        password.addEventListener('mouseover', () => {
+            createEl(user, ['password'])
+        });
+
+        function createEl(arg, property){
+            info.innerHTML = '';
+            info.insertAdjacentHTML('beforeend', `
+                <p class="dummyClass text-gray-400 text-2xl">My ${property[0]} is</p>
+                <p class="font-bold text-4xl mt-2">${arg[property]}</p>
+            `)
+        }
+
+        logout.addEventListener('click', () => {
+            localStorage.removeItem('loggedIn');
+            location.href = "http://127.0.0.1:5500/login.html";
+        })
+
+        // fullname.addEventListener('mouseleave', () => {
+        //     dummyClass.innerHTML = "garlaa"
+        // })
+    </script>
+</body>
+</html>

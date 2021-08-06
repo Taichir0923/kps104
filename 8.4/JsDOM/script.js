@@ -90,7 +90,13 @@ let formIsValid = false;
 let passwordIsValid = false;
 let passwordMatched = false;
 
-const users = [];
+let users = []; // 1 users
+
+if(localStorage['users']){
+    users = JSON.parse(localStorage['users'])
+}
+
+// local 1 users
 
 passwordInput.addEventListener('input', () => {
     let regExp =[/[a-z]/, /[A-Z]/, /\d/, /\W/, /.{8,}/];
@@ -190,7 +196,6 @@ function resetForm(){
     passwordInput.value = '';
     passwordConfirm.value = '';
 }
-
 
 
 

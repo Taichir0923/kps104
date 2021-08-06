@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+    <div class="wrap w-full h-screen flex justify-center items-center">
+        <form class="w-4/5 flex flex-col md:w-2/5">
+            <h1 class="text-2xl mb-6 font-bold">Нэвтрэх хуудас</h1>
+            <label class="font-bold" for="email">Email</label>
+            <input class="mb-4 py-2 px-4 border border-green-400 rounded-xl focus:outline-none" type="email" id="email" placeholder="Email">
+            <label class="font-bold" for="password">Password</label>
+            <input class="mb-2 py-2 px-4 border border-green-400 rounded-xl focus:outline-none" type="password" id="password" placeholder="Password">
+
+            <div class="w-full mb-5 flex justify-between items-center">
+                <p class="text-green-400 cursor-pointer font-bold">Нууц үг мартсан</p>
+                <p class="text-green-400 cursor-pointer font-bold">
+                    <a href="./index.html">Бүртгүүлэх</a>
+                </p>
+            </div>
+
+            <input class="mb-4 py-2 px-4 border border-green-400 rounded-xl focus:outline-none bg-green-400 text-white" type="submit" id="loginBtn" value="Login">
+        </form>
+    </div>
+
+    <script>
+        const login = document.querySelector('#loginBtn');
+        const email = document.querySelector('#email');
+        const password = document.querySelector('#password');
+
+        let users = [];
+
+        if(localStorage['users']){
+            users = JSON.parse(localStorage['users'])
+        }
+
+        login.addEventListener('click', e => {
+            e.preventDefault();
+            let currentUser = users.find(el => el.email === email.value);
+            
+            if(!currentUser) {
+                // alert('Хэрэглэгч олдсонгүй');
+                swal({
+                    icon: "error",
+                    title: "Алдаа гарлаа",
+                    text: 'Хэрэглэгч олдсонгүй'
+                    // message: ''
+                });
+                return;
+            } 
+
+            if(currentUser.password === password.value){
+                localStorage.setItem('loggedIn', JSON.stringify(currentUser));
+                location.href = "http://127.0.0.1:5500/user.html";
+            } else {
+                swal({
+                    icon: "error",
+                    title: "Алдаа гарлаа",
+                    text: 'Имэйл эсвэл нууц үг буруу байна.'
+                    // message: ''
+                });
+                // alert("");
+                return;
+            }
+        })
+    </script>
+</body>
+</html>
