@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <main class="container mx-auto my-4 py-4 px-8 shadow-xl rounded-xl bg-white">
+        <div class="post__owner my-4 flex items-center">
+            <div class="w-10 h-10 rounded-full overflow-hidden bg-red-400">
+                <img id="ownerAvatar" class="w-full h-full object-cover" src="https://i.pinimg.com/236x/0d/90/4a/0d904ac1ac8a53face6cc14d524147c1.jpg" alt="">
+            </div>
+            <p id="ownerName" class="font-semibold text-xl ml-3">Username</p>
+        </div>
+        <div class="post__title">
+            <h1 id="postTitle" class="text-xl font-bold">Постын гарчиг</h1>
+        </div>
+        <div id="postBody" class="post__body mt-2 mb-6">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque, unde necessitatibus ullam minima animi voluptates debitis provident voluptatum magni vel perspiciatis rem non, reiciendis sint aliquid aperiam omnis! Eligendi, dicta. Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, animi. Incidunt nam modi et. Cumque harum corrupti ex. Laboriosam similique minus veniam quos exercitationem dolores aliquam quas non libero assumenda.
+            Eius vel quas iusto animi facilis eveniet minus expedita, nesciunt nihil reiciendis, corrupti natus aliquid officia nisi provident porro veniam doloribus cupiditate eum dolore? Vitae ratione sed minus temporibus libero!
+            Et, recusandae commodi quisquam eveniet in aut autem a itaque officiis velit nostrum laboriosam dolor reprehenderit optio deleniti sed assumenda amet? Saepe doloribus architecto fugiat ipsam porro deleniti ullam voluptates.
+            Inventore cumque a pariatur voluptas, animi eaque, sint magnam quasi architecto alias culpa cupiditate porro ipsa corrupti quia aliquam dolorum illum fugit minima quisquam aperiam dolores blanditiis vel. Numquam, officia.
+            Id fuga autem, iusto pariatur aperiam exercitationem debitis ab, molestiae laboriosam placeat nemo maxime nobis facilis vel. Fuga non dolorum aliquid sequi quis esse neque nemo, pariatur fugiat qui harum.
+            Adipisci earum iure dolore natus debitis quisquam hic saepe delectus, doloremque ducimus vero animi facere a officiis doloribus error laborum odit ipsam. Accusantium temporibus cum ducimus ab quae accusamus perspiciatis.
+            Provident porro ipsa autem, odit incidunt similique quas aliquid harum, amet, et consectetur hic dolores nihil. Error obcaecati corporis quis. Dolorem laborum eius eos illum eligendi, dolore animi laudantium ipsa.
+            Sit atque recusandae ipsa sapiente mollitia, pariatur aut enim commodi et necessitatibus dolores est culpa officiis non amet ab dicta iusto aperiam! Impedit cumque obcaecati repellat nisi inventore ea quod!
+            Numquam quasi ex rem saepe deleniti, repudiandae explicabo atque doloremque fuga, corporis odit sed ipsa est facilis nam illum facere hic excepturi voluptatem vitae. Harum nostrum assumenda voluptas ex totam.
+            Impedit quia corrupti officia id. Obcaecati reprehenderit quae vitae, quis cupiditate officiis repellendus harum atque velit, eligendi explicabo in aliquid ducimus tempore dicta recusandae vel? Possimus repudiandae perspiciatis iusto soluta.</p>
+        </div>
+    </main>
+    <script>
+        const postTitle = document.querySelector('#postTitle');
+        const postBody = document.querySelector('#postBody');
+        const ownerAvatar = document.querySelector('#ownerAvatar');
+        const ownerName = document.querySelector('#ownerName');
+
+        let currentPost, users, postOwner;
+
+        if(localStorage['users']){
+            users = JSON.parse(localStorage['users']);
+        }
+
+        if(localStorage['currentPost']){
+            currentPost = JSON.parse(localStorage['currentPost']);
+            postOwner = users.find(el => el.id === currentPost.userId);
+            // postTitle.innerText = currentPost.title;
+            // postBody.innerText = currentPost.body;
+            ownerAvatar.src = postOwner.avatar;
+            ownerName.innerText = postOwner.fullname
+        }
+
+        
+    </script>
+</body>
+</html>
