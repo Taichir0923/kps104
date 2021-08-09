@@ -68,6 +68,9 @@
 
 // console.log(sentence.match(regEx));
 
+// import Post from './data.js'
+// import {User} from './data.js';
+
 const passwordInput = document.querySelector('#password');
 const passwordConfirm = document.querySelector('#password--confirm');
 const smallLetter = document.querySelectorAll('.check');
@@ -76,15 +79,22 @@ const btn = document.querySelector('#btn');
 const fullnameInput = document.querySelector('#fullname');
 const emailInput = document.querySelector('#email');
 const numberInput = document.querySelector('#number');
+const avatarInput = document.querySelector('#avatar');
 
+
+// let post = new Post();
 class User {
-    constructor(email, fullname, password, number){
+    constructor(email, fullname, password, number, avatar){
         this.email = email;
         this.fullname = fullname;
         this.password = password;
-        this.number = number
+        this.number = number;
+        this.avatar = avatar;
+        this.id = Math.random().toString().split('.')[1];
     }
 }
+
+// console.log(post)
 
 let formIsValid = false;
 let passwordIsValid = false;
@@ -97,6 +107,7 @@ if(localStorage['users']){
 }
 
 // local 1 users
+
 
 passwordInput.addEventListener('input', () => {
     let regExp =[/[a-z]/, /[A-Z]/, /\d/, /\W/, /.{8,}/];
@@ -173,13 +184,15 @@ btn.addEventListener('click', e => {
         numberInput.classList.remove('border-red-400');
         formIsValid = true
     }
+    
 
     if(formIsValid && passwordIsValid && passwordMatched){
         const user = new User(
             emailInput.value,
             fullnameInput.value,
             passwordInput.value,
-            numberInput.value
+            numberInput.value,
+            avatarInput.value
         )
 
         users.push(user);
@@ -195,6 +208,7 @@ function resetForm(){
     numberInput.value = null;
     passwordInput.value = '';
     passwordConfirm.value = '';
+    avatarInput.value = '';
 }
 
 
