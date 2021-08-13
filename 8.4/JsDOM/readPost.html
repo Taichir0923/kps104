@@ -32,29 +32,84 @@
             Numquam quasi ex rem saepe deleniti, repudiandae explicabo atque doloremque fuga, corporis odit sed ipsa est facilis nam illum facere hic excepturi voluptatem vitae. Harum nostrum assumenda voluptas ex totam.
             Impedit quia corrupti officia id. Obcaecati reprehenderit quae vitae, quis cupiditate officiis repellendus harum atque velit, eligendi explicabo in aliquid ducimus tempore dicta recusandae vel? Possimus repudiandae perspiciatis iusto soluta.</p>
         </div>
+        <form action="" class="flex justify-between items-start">
+            <div class="w-10/12 relative mt-4">
+                <textarea class="bg-gray-100 w-full border border-gray-300 rounded-xl py-4 focus:outline-none focus:border-indigo-400" name="" placeholder="Коммент бичих" id="commentInput" rows="1"></textarea>
+                <div id="message" class="absolute hidden w-max border-red-400 bg-red-200 text-center px-8 py-3 border top-full text-red-400 left-0">Хоосон байж болохгүй</div>
+            </div>
+
+            <input id="btn--comment" class="mt-4 px-8 rounded-xl py-4" type="submit" value="Коммент бичих">
+        </form>
     </main>
     <script>
         const postTitle = document.querySelector('#postTitle');
         const postBody = document.querySelector('#postBody');
         const ownerAvatar = document.querySelector('#ownerAvatar');
         const ownerName = document.querySelector('#ownerName');
+        const commentInput = document.querySelector('#commentInput');
+        const btnComment = document.querySelector('#btn--comment');
 
-        let currentPost, users, postOwner;
+        let currentPost, users, postOwner, comments;
+        let commentCount = 0;
 
-        if(localStorage['users']){
-            users = JSON.parse(localStorage['users']);
+        class Comment {
+            constructor(text, userId, postId){
+                this.text = text;
+                this.userId = userId;
+                this.postId = postId;
+                this.created = new Date();
+                this.id = Math.random().toString().split('.')[1]
+            }
         }
+        getDataFromLocal()
 
-        if(localStorage['currentPost']){
-            currentPost = JSON.parse(localStorage['currentPost']);
-            postOwner = users.find(el => el.id === currentPost.userId);
-            // postTitle.innerText = currentPost.title;
-            // postBody.innerText = currentPost.body;
-            ownerAvatar.src = postOwner.avatar;
-            ownerName.innerText = postOwner.fullname
+        function getDataFromLocal(){
+            if(localStorage['users']){
+                users = JSON.parse(localStorage['users']);
+            }
+    
+            if(localStorage['currentPost']){
+                currentPost = JSON.parse(localStorage['currentPost']);
+                postOwner = users.find(el => el.id === currentPost.userId);
+                postTitle.innerText = currentPost.title;
+                postBody.innerText = currentPost.body;
+                ownerAvatar.src = postOwner.avatar;
+                ownerName.innerText = postOwner.fullname
+            }
+
+            if(localStorage['comments']){
+                comments = JSON.parse(localStorage['comments']);
+            } else {
+                comments = [];
+            }
+            
+            commentCount = comments.filter(el => el.postId === currentPost.id).length;
         }
 
         
+
+        // Write Comment
+        btnComment.addEventListener('click', e => {
+            e.preventDefault();
+            if(commentInput.value !== ''.trim()){
+                let comment = new Comment(commentInput.value, postOwner.id, currentPost.id);
+                comments.push(comment);
+
+                localStorage.setItem('comments', JSON.stringify(comments));
+
+                commentCount++;
+
+                commentInput.classList.remove('border-red-400');
+                document.querySelector('#message').classList.add('hidden');
+            } else {
+                commentInput.classList.add('border-red-400');
+                document.querySelector('#message').classList.remove('hidden');
+            }
+        })
     </script>
 </body>
 </html>
+<!-- JSON - [{}, {}, {}] -->
+<!-- TypeScript -->
+<!-- NODE -->
+<!-- DENO -->

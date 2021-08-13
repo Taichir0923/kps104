@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css" integrity="sha512-y6ZMKFUQrn+UUEVoqYe8ApScqbjuhjqzTuwUMEGMDuhS2niI8KA3vhH2LenreqJXQS+iIXVTRL2iaNfJbDNA1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <canvas class="border-2 bg-black mx-auto border-black" id="canvas"></canvas>
+
+    <script>
+        const canvas = document.querySelector('#canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let points = {
+            x: undefined,
+            y: undefined
+        }
+
+        window.addEventListener('mousemove', e => {
+            points.x = e.x;
+            points.y = e.y;
+        })
+
+        class Star {
+            constructor(x, y, xSpeed, ySpeed, radius, red, green, blue){
+                this.x = x;
+                this.y = y;
+                this.xSpeed = xSpeed;
+                this.ySpeed = ySpeed;
+                this.radius = radius;
+                this.red = red;
+                this.green = green;
+                this.blue = blue
+            }
+
+            drawStars(){
+                ctx.fillStyle = `rgb(${this.red},${this.green},${this.blue})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            move(){
+                if(this.x + this.radius >= canvas.width || this.x <= this.radius){
+                    this.xSpeed = -this.xSpeed
+                }
+
+                if(this.y + this.radius >= canvas.height || this.y <= this.radius){
+                    this.ySpeed = -this.ySpeed
+                }
+
+                this.x += this.xSpeed;
+                this.y += this.ySpeed;
+
+                if(
+                    points.x - this.x < 20 &&
+                    points.x - this.x > -20 &&
+                    points.y - this.y < 20 &&
+                    points.y - this.y > -20 
+                ){
+                    if(this.radius <= 60){
+                        this.radius += 1;
+                    }
+                } else if (this.radius > 5){
+                    this.radius -= 1
+                }
+            }
+        }
+
+        let stars = [];
+        for(let i = 0; i < 1000; i++){
+            let radius = 5;
+            let xP = Math.random() * (canvas.width - radius * 2) + radius;
+            let yP = Math.random() * (canvas.height - radius * 2) + radius;
+            let xS = (Math.random() - 0.5) * 5;
+            let yS = (Math.random() - 0.5) * 5;
+            let red = Math.floor(Math.random() * 256);
+            let green = Math.floor(Math.random() * 256);
+            let blue = Math.floor(Math.random() * 256);
+
+            let star = new Star(xP, yP, xS, yS, radius, red, green, blue);
+            stars.push(star)
+        }
+
+        function animate(){
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for(let j = 0; j < stars.length; j++){
+                stars[j].drawStars();
+                stars[j].move()
+            }
+        }
+
+
+
+        animate()
+    </script>
+</body>
+</html>
