@@ -1,0 +1,15 @@
+<%- include('include/head.ejs') %>
+<main class="w-full h-screen flex items-center justify-center bg-gray-100">
+    <form class="w-2/5 rounded shadow-xl p-4 flex flex-col" action="/user/login" method="POST">
+        <label for="email" class="font-bold">
+            Email
+        </label>
+        <input type="text" placeholder="Email" id="email" name="email" class="py-2 px-4 rounded-md border border-gray-300 mb-4">
+        <label for="password" class="font-bold">
+            Password
+        </label>
+        <input type="password" placeholder="Password" id="password" name="password" class="py-2 px-4 rounded-md border border-gray-300 mb-4">
+        <input class="py-2 px-4 rounded-md border border-gray-300" type="submit" value="Нэвтрэх">
+    </form>
+</main>
+<%- include('include/foot.ejs') %>
