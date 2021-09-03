@@ -20,6 +20,10 @@ exports.loginContoller = (req, res) => {
 
 exports.userController = (req, res) => {
     const userId = req.params.id;
-    // const user = objectData.find()
-    res.end('haha')
+    const loggedUser = objectData.find(user => user.id === +userId)
+    // console.log(loggedUser)
+    res.render('account', {
+        pageTitle: loggedUser.name,
+        user: loggedUser
+    })
 }
