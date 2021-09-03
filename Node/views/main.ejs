@@ -1,0 +1,13 @@
+<%- include('include/head.ejs') %>
+    <% if(users.length === 0){ %>
+        <h1>Хэрэглэг байхгүй байна..</h1>
+    <% } else { %>
+        <% for(user of users){ %>
+            <h1 class="text-green-400">
+               <a href="/user/%<= user.id %>">
+                    <%= user.username %>
+               </a>
+            </h1>
+        <% } %>
+    <% } %>
+<%- include('include/foot.ejs') %>

@@ -1,14 +1,18 @@
 const path = require('path');
 const fs = require('fs');
+const Member = require('../model/member');
 
 const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 
 const objectData = JSON.parse(data)
 
 exports.homeController = (req, res) => {
-    res.write('<h1>Changed</h1>');
-    res.write('<p>testing module</p>');
-    res.end();
+    Member.fetchUsers(users => {
+        res.render('main', {
+            pageTitle: "users",
+            users: users
+        })
+    })
 }
 
 exports.loginContoller = (req, res) => {
@@ -26,4 +30,26 @@ exports.userController = (req, res) => {
         pageTitle: loggedUser.name,
         user: loggedUser
     })
+}
+
+exports.getRegisterController = (req, res) => {
+    res.render('signup', {
+        pageTitle: "Бүртгэл"
+    })
+}
+
+exports.postRegisterController = (req, res) => {
+    const username = req.body.username;
+    const email = req.body.email;
+    const number = req.body.number;
+    const password = req.body.password;
+    const avatar = req.body.avatar;
+
+    const user = new Member(username, email, number, avatar, password)
+
+    user.save();
+
+    console.log(user)
+
+    res.redirect('/')
 }
