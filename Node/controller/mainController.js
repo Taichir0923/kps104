@@ -53,3 +53,36 @@ exports.postRegisterController = (req, res) => {
 
     res.redirect('/')
 }
+
+
+exports.getEditController = (req, res) => {
+    const userId = req.params.id;
+    Member.findById(userId, user => {
+        res.render('edit', {
+            pageTitle: "Засах",
+            user: user
+        })
+    })
+}
+
+exports.postEditController = (req, res) => {
+    const userId = req.body.userId;
+    const username = req.body.username;
+    const email = req.body.email;
+    const number = req.body.number;
+    const password = req.body.password;
+    const avatar = req.body.avatar;
+
+    const updatedUser = new Member(username, email, number, avatar, password);
+    
+    updatedUser.update(userId)
+
+    res.redirect(`/`)
+}
+
+
+exports.postDeleteController = (req, res) => {
+    const userId = req.body.userId;
+    Member.deleteUser(userId);
+    res.redirect('/')
+}

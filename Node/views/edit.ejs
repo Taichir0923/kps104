@@ -1,0 +1,34 @@
+<%- include('include/head.ejs') %>
+<main class="w-full h-screen flex items-center justify-center bg-gray-100">
+    <form class="w-2/5 rounded shadow-xl p-4 flex flex-col" action="/edit" method="POST">
+        <label for="username" class="font-bold">
+            username
+        </label>
+        <input value="<%= user.username %>" type="text" placeholder="username" id="username" name="username" class="py-2 px-4 rounded-md border border-gray-300 mb-4">
+
+        <label for="number" class="font-bold">
+            number
+        </label>
+        <input value="<%= user.number %>" type="text" placeholder="number" id="number" name="number" class="py-2 px-4 rounded-md border border-gray-300 mb-4">
+
+        <label for="avatar" class="font-bold">
+            avatar
+        </label>
+        <input value="<%= user.avatar %>" type="text" placeholder="avatar" id="avatar" name="avatar" class="py-2 px-4 rounded-md border border-gray-300 mb-4">
+
+        <label for="email" class="font-bold">
+            Email
+        </label>
+        <input value="<%= user.email %>" type="text" placeholder="Email" id="email" name="email" class="py-2 px-4 rounded-md border border-gray-300 mb-4">
+
+        <label for="password" class="font-bold">
+            Password
+        </label>
+        <input value="<%= user.password %>" type="password" placeholder="Password" id="password" name="password" class="py-2 px-4 rounded-md border border-gray-300 mb-4">
+
+        <input type="hidden" value="<%= user.id %>" name="userId">
+
+        <input class="py-2 px-4 rounded-md border border-gray-300" type="submit" value="Засах">
+    </form>
+</main>
+<%- include('include/foot.ejs') %>

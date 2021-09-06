@@ -32,7 +32,37 @@ module.exports = class User {
         })
     }
 
+    update(userId){
+        getMembers(users => {
+            const userIndex = users.findIndex(user => user.id === userId)
+            if(userIndex){
+                const updatedData = [...users];
+                this.id = userId;
+                updatedData[userIndex] = this;
+                fs.writeFile(pth, JSON.stringify(updatedData), err => {
+                    console.log(err)
+                })
+            }
+        })
+    }
+
     static fetchUsers(users){
         getMembers(users)
+    }
+
+    static findById(id, user){
+        getMembers(users => {
+            const currentUser = users.find(user => user.id === id)
+            user(currentUser)
+        })
+    }
+
+    static deleteUser(id){
+        getMembers(users => {
+            const updatedData = users.filter(user => user.id !== id);
+            fs.writeFile(pth, JSON.stringify(updatedData), err => {
+                console.log(err)
+            })
+        })
     }
 }
