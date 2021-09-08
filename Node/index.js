@@ -21,7 +21,8 @@
 // });
 const path = require('path');
 const express = require('express');
-const bp = require('body-parser')
+const bp = require('body-parser');
+const mongoose = require('mongoose')
 
 const mainRouter = require('./router/mainRouter');
 const authRouter = require('./router/auth');
@@ -38,4 +39,8 @@ app.use(authRouter);
 app.use(mainRouter);
 
 
-app.listen(3000)
+mongoose.connect('mongodb://127.0.0.1:27017/academy')
+.then(result => {
+    app.listen(3000)
+})
+.catch(err => console.log(err))

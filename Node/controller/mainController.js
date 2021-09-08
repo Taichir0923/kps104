@@ -1,16 +1,17 @@
 const path = require('path');
 const fs = require('fs');
-const Member = require('../model/member');
+const Student = require('../model/member');
 
 const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 
 const objectData = JSON.parse(data)
 
 exports.homeController = (req, res) => {
-    Member.fetchUsers(users => {
+    Student.find()
+    .then(students => {
         res.render('main', {
             pageTitle: "users",
-            users: users
+            users: students
         })
     })
 }
@@ -24,11 +25,13 @@ exports.loginContoller = (req, res) => {
 
 exports.userController = (req, res) => {
     const userId = req.params.id;
-    const loggedUser = objectData.find(user => user.id === +userId)
-    // console.log(loggedUser)
-    res.render('account', {
-        pageTitle: loggedUser.name,
-        user: loggedUser
+    Student.findOne({_id: userId})
+    .then(student => {
+        console.log(student)
+        res.render('account', {
+            pageTitle: 'loggedUser.name',
+            user: student
+        })
     })
 }
 
@@ -45,22 +48,25 @@ exports.postRegisterController = (req, res) => {
     const password = req.body.password;
     const avatar = req.body.avatar;
 
-    const user = new Member(username, email, number, avatar, password)
+    const user = new Student({
+        name: username
+    })
 
-    user.save();
-
-    console.log(user)
-
-    res.redirect('/')
+    user.save()
+    .then(result => {
+        console.log(result)
+        res.redirect('/')
+    })
 }
 
 
 exports.getEditController = (req, res) => {
     const userId = req.params.id;
-    Member.findById(userId, user => {
+    Student.findById(userId)
+    .then(student => {
         res.render('edit', {
             pageTitle: "Засах",
-            user: user
+            user: student
         })
     })
 }
@@ -73,11 +79,15 @@ exports.postEditController = (req, res) => {
     const password = req.body.password;
     const avatar = req.body.avatar;
 
-    const updatedUser = new Member(username, email, number, avatar, password);
-    
-    updatedUser.update(userId)
-
-    res.redirect(`/`)
+    Student.findById(userId)
+    .then(student => {
+        student.name = username
+        return student.save()
+    })
+    .then(result => {
+       console.log(result);
+       res.redirect(`/user/${result._id}`)
+    })
 }
 
 
