@@ -1,5 +1,8 @@
 const path = require('path');
 const fs = require('fs');
+const bcrypt = require('bcryptjs')
+
+
 const Student = require('../model/member');
 
 const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
@@ -7,6 +10,7 @@ const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 const objectData = JSON.parse(data)
 
 exports.homeController = (req, res) => {
+    console.log(req.cookies)
     Student.find()
     .then(students => {
         res.render('main', {
@@ -25,9 +29,9 @@ exports.loginContoller = (req, res) => {
 
 exports.userController = (req, res) => {
     const userId = req.params.id;
+    console.log(req.cookies)
     Student.findOne({_id: userId})
     .then(student => {
-        console.log(student)
         res.render('account', {
             pageTitle: 'loggedUser.name',
             user: student
@@ -48,15 +52,27 @@ exports.postRegisterController = (req, res) => {
     const password = req.body.password;
     const avatar = req.body.avatar;
 
-    const user = new Student({
-        name: username
-    })
+    Student.findOne({email: email})
+        .then(user => {
+            if(user){
+                res.redirect('/register')
+            } else {
+                return bcrypt.hash(password, 12).then(hashedPass => {
+                    const user = new Student({
+                        name: username,
+                        email: email,
+                        password: hashedPass
+                    })
 
-    user.save()
-    .then(result => {
-        console.log(result)
-        res.redirect('/')
-    })
+                    return user.save()
+                })
+                .then(result => {
+                    res.redirect('/')
+                })
+                .catch(err => console.log(err))
+            }
+        })
+        .catch(err => console.log(err))
 }
 
 
@@ -93,6 +109,9 @@ exports.postEditController = (req, res) => {
 
 exports.postDeleteController = (req, res) => {
     const userId = req.body.userId;
-    Member.deleteUser(userId);
-    res.redirect('/')
+    Student.findByIdAndRemove(userId)
+        .then(() => {
+            res.redirect('/')
+        })
+        .catch(err => console.log(err))
 }
