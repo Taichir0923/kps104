@@ -2,5 +2,8 @@
 <main>
     <h1><%= user.name %></h1>
     <a href="/edit/<%= user._id %>">Мэдээлэл засах</a>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
 </main>
 <%- include('include/foot.ejs') %>

@@ -1,0 +1,29 @@
+<%- include('include/head.ejs') %>
+<main class="w-full bg-gray-100 h-screen">
+    <div class="header absolute top-0 left-0 py-3 items-center justify-between shadow-md px-6 flex w-full bg-white">
+        <h1 class="text-3xl text-indigo-500 font-bold">Удирдах хэсэг</h1>
+
+        <form action="/logout">
+            <button type="submit">
+                logout
+            </button>
+        </form>
+    </div>
+
+    <div style="padding-top: 60px;" class="main flex gap justify-between">
+        <div class="sidebar shadow-md w-1/6 h-screen bg-white">
+            <ul>
+                <li class="py-3 px-4 text-gray-600 transition duration-300 hover:bg-indigo-500 hover:text-white cursor-pointer font-bold border-b border-gray-300">Мэдээнүүд</li>
+                <li class="py-3 px-4 text-gray-600 transition duration-300 hover:bg-indigo-500 hover:text-white cursor-pointer font-bold border-b border-gray-300">Мэдээ оруулах</li>
+                <li class="py-3 px-4 text-gray-600 transition duration-300 hover:bg-indigo-500 hover:text-white cursor-pointer font-bold border-b border-gray-300">Админ үүсгэх</li>
+                <li class="py-3 px-4 text-gray-600 transition duration-300 hover:bg-indigo-500 hover:text-white cursor-pointer font-bold border-b border-gray-300">Үндсэн сайт</li>
+            </ul>
+        </div>
+        <div class="board p-4 w-5/6">
+            <div class="w-full h-96 bg-white rounded-xl"></div>
+        </div>
+    </div>
+</main>
+
+<script src="/js/admin.js"></script>
+<%- include('include/foot.ejs') %>

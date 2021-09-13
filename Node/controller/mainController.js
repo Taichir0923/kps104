@@ -10,7 +10,6 @@ const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 const objectData = JSON.parse(data)
 
 exports.homeController = (req, res) => {
-    console.log(req.cookies)
     Student.find()
     .then(students => {
         res.render('main', {
@@ -28,15 +27,19 @@ exports.loginContoller = (req, res) => {
 }
 
 exports.userController = (req, res) => {
-    const userId = req.params.id;
-    console.log(req.cookies)
-    Student.findOne({_id: userId})
-    .then(student => {
-        res.render('account', {
-            pageTitle: 'loggedUser.name',
-            user: student
+    if(req.session.isLoggedIn){
+        const userId = req.params.id;
+        console.log(req.cookies)
+        Student.findOne({_id: userId})
+        .then(student => {
+            res.render('account', {
+                pageTitle: 'loggedUser.name',
+                user: student
+            })
         })
-    })
+    } else {
+        res.redirect('/login')
+    }
 }
 
 exports.getRegisterController = (req, res) => {
