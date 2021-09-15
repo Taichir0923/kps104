@@ -10,9 +10,17 @@ const articleSchema = new Schema({
         type: String,
         required: true
     },
+    category: {
+        type: String,
+        required: true
+    },
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'student',
+        required: true
+    },
+    created: {
+        type: Date,
         required: true
     }
 });

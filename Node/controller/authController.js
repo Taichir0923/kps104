@@ -10,8 +10,8 @@ const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 const objectData = JSON.parse(data)
 
 exports.getLoginController = (req, res) => {
-    if(req.cookies.loggedIn === 'true'){
-        res.redirect(`/user/${req.user._id}`)
+    if(req.session.isLoggedIn){
+        res.redirect(`/admin`)
     } else {
         res.render('login', {
             pageTitle: "Нэвтрэх хуудас"
@@ -32,7 +32,7 @@ exports.postLoginController = (req, res) => {
                         if(matched){
                             req.session.isLoggedIn = true;
                             req.session.user = user;
-                            res.redirect(`/user/${user._id}`);
+                            res.redirect(`/admin`);
                         } else {
                             res.redirect('/login')
                         }

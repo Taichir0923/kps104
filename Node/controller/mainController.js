@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 
 
 const Student = require('../model/member');
+const Article = require('../model/article')
 
 const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 
@@ -29,7 +30,6 @@ exports.loginContoller = (req, res) => {
 exports.userController = (req, res) => {
     if(req.session.isLoggedIn){
         const userId = req.params.id;
-        console.log(req.cookies)
         Student.findOne({_id: userId})
         .then(student => {
             res.render('account', {
@@ -115,6 +115,18 @@ exports.postDeleteController = (req, res) => {
     Student.findByIdAndRemove(userId)
         .then(() => {
             res.redirect('/')
+        })
+        .catch(err => console.log(err))
+}
+
+exports.getReadController = (req, res) => {
+    const articleId = req.params.id;
+    Article.findById(articleId)
+        .then(article => {
+            res.render('read-article', {
+                pageTitle: article.title,
+                article: article
+            })
         })
         .catch(err => console.log(err))
 }

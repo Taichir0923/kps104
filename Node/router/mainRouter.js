@@ -17,6 +17,8 @@ router.post('/edit', mainController.postEditController)
 
 router.post('/delete', mainController.postDeleteController)
 
+router.get('/read-article/:id' , mainController.getReadController)
+
 module.exports = router;
 
 // MVC - Model, View, Controller
