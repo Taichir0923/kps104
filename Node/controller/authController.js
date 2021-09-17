@@ -10,11 +10,19 @@ const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 const objectData = JSON.parse(data)
 
 exports.getLoginController = (req, res) => {
+    let message = req.flash("loginErr");
     if(req.session.isLoggedIn){
         res.redirect(`/admin`)
     } else {
+        if(message.length !== 0){
+            message = message[0]
+        } else {
+            message = null
+        }
+        console.log(message)
         res.render('login', {
-            pageTitle: "Нэвтрэх хуудас"
+            pageTitle: "Нэвтрэх хуудас",
+            message: message
         })
     }
 }
@@ -25,7 +33,8 @@ exports.postLoginController = (req, res) => {
     Student.findOne({email: email})
         .then(user => {
             if(!user){
-                res.redirect('/login')
+                req.flash("loginErr", "Имэйл эсвэл нууц үг буруу байна.")
+                return res.redirect('/login')
             } else {
                 bcrypt.compare(password, user.password)
                     .then(matched => {
@@ -34,8 +43,9 @@ exports.postLoginController = (req, res) => {
                             req.session.user = user;
                             res.redirect(`/admin`);
                         } else {
-                            res.redirect('/login')
+                            req.flash("loginErr", "Имэйл эсвэл нууц үг буруу байна.")
                         }
+                        res.redirect('/login')
                     })
                     .catch(err => console.log(err))
             }
@@ -52,7 +62,9 @@ exports.postLogoutController = (req, res) => {
 
 // CSRF - Cross Site Request Forgery
 // session
-// JWT - Json Web Token
+
+// csurf = > req csrfToken() => 
+// JWT - Json Web Token => passport
 // passport
 
 

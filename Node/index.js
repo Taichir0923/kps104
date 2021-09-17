@@ -26,6 +26,7 @@ const mongoose = require('mongoose');
 const cp = require('cookie-parser');
 const session = require('express-session');
 const MongoSession = require('connect-mongodb-session')(session)
+const flash = require('connect-flash')
 
 
 const mainRouter = require('./router/mainRouter');
@@ -65,6 +66,7 @@ app.use((req, res, next) => {
         .catch(err => console.log(err))
 })
 
+app.use(flash())
 app.use(cp());
 app.use(adminRouter)
 app.use(authRouter);

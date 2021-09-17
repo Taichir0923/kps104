@@ -130,3 +130,14 @@ exports.getReadController = (req, res) => {
         })
         .catch(err => console.log(err))
 }
+
+// class User {
+//     constructor(){
+//         this.ner = ner;
+//         this.cart = [];
+//     }
+
+//     addToCart(product){
+//         this.cart.push(product)
+//     }
+// }

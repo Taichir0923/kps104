@@ -22,7 +22,25 @@ const articleSchema = new Schema({
     created: {
         type: Date,
         required: true
-    }
+    },
+    comments: [
+        {
+            guest: {
+                type: String,
+                required: true
+            },
+            comment: {
+                type: String,
+                required: true
+            }
+        }
+    ]
 });
+
+// articleSchema.methods.addComment = function(comment){
+
+// }
+
+// 
 
 module.exports = mongoose.model('article', articleSchema)

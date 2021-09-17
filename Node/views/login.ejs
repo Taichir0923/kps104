@@ -1,6 +1,11 @@
 <%- include('include/head.ejs') %>
 <main class="w-full h-screen flex items-center justify-center bg-gray-100">
-    <form class="w-2/5 rounded shadow-xl p-4 flex flex-col" action="/user/login" method="POST">
+    <form class="w-2/5 rounded shadow-xl relative p-4 flex flex-col bg-white" action="/user/login" method="POST">
+        <% if(message !== null){ %>
+            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 w-full px-4 py-2 text-center border-4 bg-red-400 mb-4 rounded-md border-red-400 text-red-400 bg-opacity-30">
+                <%= message %>
+            </div>
+        <% } %>
         <label for="email" class="font-bold">
             Email
         </label>
