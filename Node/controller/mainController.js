@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs')
+const nodemailer = require('nodemailer')
+const nodemailTransport = require("nodemailer-sendgrid-transport");
 
 
 const Student = require('../model/member');
@@ -9,6 +11,12 @@ const Article = require('../model/article')
 const data = fs.readFileSync(`${__dirname}/../data/users.json`, 'utf-8');
 
 const objectData = JSON.parse(data)
+
+const transport = nodemailer.createTransport(nodemailTransport({
+    auth: {
+        api_key: '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'
+    }
+}))
 
 exports.homeController = (req, res) => {
     Student.find()
@@ -70,7 +78,15 @@ exports.postRegisterController = (req, res) => {
                     return user.save()
                 })
                 .then(result => {
-                    res.redirect('/')
+                    res.redirect('/');
+                    return transport.sendMail({
+                        to: "narada4027@gmail.com",
+                        from: "cultsg.and.cultr@gmail.com",
+                        subject: "сайн байна уу...",
+                        html: `<div style="margin: auto; text-align:center; background-color: black; color: white">
+                            <h1>Бүртгэл амжилттай...</h1>
+                        </div>`
+                    })
                 })
                 .catch(err => console.log(err))
             }

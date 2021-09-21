@@ -26,7 +26,8 @@ const mongoose = require('mongoose');
 const cp = require('cookie-parser');
 const session = require('express-session');
 const MongoSession = require('connect-mongodb-session')(session)
-const flash = require('connect-flash')
+const flash = require('connect-flash');
+const multer = require('multer');
 
 
 const mainRouter = require('./router/mainRouter');
@@ -35,6 +36,23 @@ const adminRouter = require('./router/adminRouter')
 const Student = require('./model/member')
 
 const app = express();
+
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString().replace(/\-/g, '').replace(/\:/g, '') + '-' + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/ico'){
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -45,8 +63,11 @@ const store = new MongoSession({
 });
 
 app.use(bp.urlencoded({extended: false}))
-app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('thumbNail'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(session({
     secret: 'mySecret',
     resave: false,

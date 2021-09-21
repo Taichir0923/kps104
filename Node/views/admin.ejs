@@ -33,7 +33,7 @@
                     <% } %>
                 </section>
                 <section id="section" class="w-full hidden">
-                    <form class="w-full flex flex-col" action="/add-article" method="POST">
+                    <form class="w-full flex flex-col" action="/add-article" method="POST" enctype="multipart/form-data">
                         <label for="title">Гарчиг</label>
                         <input type="text" placeholder="Гарчиг" id="title" name="title" class="border mb-4 border-gray-300 py-2 px-4 rounded-md">
 
@@ -44,7 +44,7 @@
                         </select>
 
                         <label for="thumbNail">Зураг</label>
-                        <input type="text" placeholder="Зураг" id="thumbNail" name="thumbNail" class="border mb-4 border-gray-300 py-2 px-4 rounded-md">
+                        <input type="file" placeholder="Зураг" id="thumbNail" name="thumbNail" class="border mb-4 border-gray-300 py-2 px-4 rounded-md">
 
                         <label for="body">Мэдээлэл оруулах</label>
                         <textarea type="text" placeholder="Мэдээлэл оруулах" id="body" name="body" rows="4" class="border mb-4 border-gray-300 py-2 px-4 rounded-md"></textarea>

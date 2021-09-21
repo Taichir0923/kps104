@@ -69,4 +69,12 @@ exports.postLogoutController = (req, res) => {
 
 
 // express-session
-// connect-mongodb-session
+// connect-mongodb-session.
+
+
+/**
+ * sender=cultsg.and.cultr@gmail.com
+reciever=cultsg.and.cultr@gmail.com
+subj=Бүртгэл
+ap_key=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
+ */
