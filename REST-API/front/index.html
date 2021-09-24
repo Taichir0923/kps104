@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+    <input type="text" id="title" placeholder="title">
+    <input type="text" id="content" placeholder="content">
+    <input type="text" id="imageUrl" placeholder="imageUrl">
+    <input type="button" value="create post" id="post">
+    <script>
+        const title = document.querySelector('#title')
+        const content = document.querySelector('#content')
+        const imageUrl = document.querySelector('#imageUrl')
+        const post = document.querySelector('#post')
+
+        post.addEventListener('click', () => {
+            const newPost = {
+                title: title.value,
+                content: content.value,
+                imageUrl: imageUrl.value
+            }
+
+            const formdata = new FormData()
+
+            fetch('http://localhost:3001/newpost', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(newPost)
+            })
+            .then(res => res.json())
+            .then(result => {
+                swal({
+                    icon: 'success',
+                    text: result.message
+                })
+            })
+            .catch(err => console.log(err))
+        })
+    </script>
+</body>
+</html>

@@ -19,6 +19,8 @@ router.post('/delete', mainController.postDeleteController)
 
 router.get('/read-article/:id' , mainController.getReadController)
 
+router.get('/all-articles', mainController.getAllNews)
+
 module.exports = router;
 
 // MVC - Model, View, Controller

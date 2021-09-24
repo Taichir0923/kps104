@@ -28,6 +28,7 @@ const session = require('express-session');
 const MongoSession = require('connect-mongodb-session')(session)
 const flash = require('connect-flash');
 const multer = require('multer');
+const cors = require('cors')
 
 
 const mainRouter = require('./router/mainRouter');
@@ -56,6 +57,8 @@ const fileFilter = (req, file, cb) => {
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+app.use(cors())
 
 const store = new MongoSession({
     uri: "mongodb://127.0.0.1:27017/academy",

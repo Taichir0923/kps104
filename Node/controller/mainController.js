@@ -135,17 +135,27 @@ exports.postDeleteController = (req, res) => {
         .catch(err => console.log(err))
 }
 
-exports.getReadController = (req, res) => {
+exports.getReadController = async (req, res) => {
     const articleId = req.params.id;
-    Article.findById(articleId)
-        .then(article => {
-            res.render('read-article', {
-                pageTitle: article.title,
-                article: article
-            })
-        })
-        .catch(err => console.log(err))
+    const article = await Article.findById(articleId)
+    res.render('read-article', {
+        pageTitle: article.title,
+        article: article
+    })
 }
+
+exports.getAllNews = async (req, res) => {
+    const articles = await Article.find();
+    res.json(articles)
+}
+
+// exports.getAllNews = (req, res) => {
+//     Article.find()
+//         .then(articles => {
+//             res.json(articles)
+//         })
+//         .catch(err => console.log(err))
+// }
 
 // class User {
 //     constructor(){
