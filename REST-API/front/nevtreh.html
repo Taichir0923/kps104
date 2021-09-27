@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <input id="email" type="text" placeholder="email">
+        <input id="password" type="password" placeholder="password">
+        <button id="login">Nevtreh</button>
+    </form>
+
+    <script>
+        const login = document.querySelector('#login')
+        const email = document.querySelector('#email')
+        const password = document.querySelector('#password')
+
+        login.addEventListener('click', e => {
+            e.preventDefault();
+            const userData = {
+                email: email.value,
+                password: password.value
+            }
+            fetch('http://localhost:3001/login', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => {
+                return response.json()
+            })
+            .then(result => {
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('userId', result.userId);
+                // const user = JSON.parse(atob(result.token.split(".")[1]));
+                // alert('Welcome ' + user.user.username)
+            })
+            .catch(err => console.log(err))
+        })
+    </script>
+</body>
+</html>
