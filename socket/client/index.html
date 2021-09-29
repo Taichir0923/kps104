@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Socket</title>
+    <script src="https://cdn.socket.io/4.2.0/socket.io.min.js" integrity="sha384-PiBR5S00EtOj2Lto9Uu81cmoyZqR57XcOna1oAuVuIEjzj0wpqDVfD0JA9eXlRsj" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <script>
+        const socket = io('http://localhost:3000')
+        socket.emit('say-hello', 'sting', 123, {a: 456})
+        socket.on('message', (arg) => {
+            arg.forEach(el => {
+                document.body.insertAdjacentHTML('afterbegin', `
+                    <p>${typeof el !== 'object' ? el : el.a}</p>
+                `)
+            })
+        })
+    </script>
+</body>
+</html>
