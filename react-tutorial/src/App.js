@@ -1,6 +1,7 @@
 import React from "react";
 import Header from './Components/Header/Header';
 import Main from "./Components/Main/Main";
+import Hero from "./Components/Hero/Hero";
 
 const data = [
   {
@@ -44,6 +45,7 @@ const data = [
 const App = () => {
   return <>
     <Header />
+    <Hero />
     <Main data={data} />
   </>
 }

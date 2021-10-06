@@ -1,11 +1,14 @@
 import Navigation from "./Navigation";
+import logo from '../../static/images/lendmnlogo.svg'
 
 const Header = () => {
-    return <header className="w-full flex justify-between items-center bg-red-400 text-white">
-        <div className="pl-4">
-            <h1 className="text-3xl font-bold">Logo</h1>
+    return <header className="header w-full fixed left-0 top-0 z-30 bg-white">
+        <div className="container mx-auto flex justify-between items-center">
+            <div className="pl-4">
+                <img src={logo} alt='logo' />
+            </div>
+            <Navigation />
         </div>
-        <Navigation />
     </header>
 }
 
