@@ -15,7 +15,7 @@ const navigation = ["Home", "About", "Service", "Contact"];
 function App() {
   const [editMode, setEditMode] = useState(false);
   const [userID, setUserID] = useState('');
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
@@ -26,7 +26,7 @@ function App() {
 
   const submitHandler = e => {
     e.preventDefault();
-    if(username.trim() !== '' && email.trim() !== '' && number.trim() !== '' && password.trim() !== ''){
+    if (username.trim() !== '' && email.trim() !== '' && number.trim() !== '' && password.trim() !== '') {
       setUsers([...users, {
         username: username,
         email: email,
@@ -76,6 +76,12 @@ function App() {
 
   const hideModalHandler = () => {
     setError(false)
+  }
+
+  const getUsersList = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+    const result = await response.json();
+    setUsers(result);
   }
 
   function resetForm() {
@@ -142,8 +148,8 @@ function App() {
 
         <Card>
           {
-            users.length !== 0 ? <List datas={users} deleteHandler={deleteHandler} editHandler={editHandler} /> : 
-            'Хэрэглэгч байхгүй байна...'
+            users.length !== 0 ? <List datas={users} deleteHandler={deleteHandler} editHandler={editHandler} /> :
+              <Button val="Хэрэглэгчийн дата авах" bg='red' type='normal' click={getUsersList} />
           }
         </Card>
 
