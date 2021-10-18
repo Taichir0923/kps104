@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import Navigation from "./Components/Navigation";
 import Container from './Components/Component';
@@ -78,11 +78,20 @@ function App() {
     setError(false)
   }
 
-  const getUsersList = async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    const result = await response.json();
-    setUsers(result);
-  }
+  // const getUsersList = async () => {
+  //   try {
+  //     const response = await fetch('https://jsonplaceholder.typicode.com/users');
+  //     console.log(response.status)
+  //     if(!response.ok){
+  //       throw Error('Уучлаарай сервертэй холбогдоход алдаа гарлаа')
+  //     }
+  //     const result = await response.json();
+  //     setUsers(result);
+  //     SetErrorMessage('');
+  //   } catch(err) {
+  //     SetErrorMessage(err.message);
+  //   }
+  // }
 
   function resetForm() {
     setUsername('');
@@ -90,6 +99,13 @@ function App() {
     setNumber('');
     setPassword('');
   }
+
+  useEffect(() => {
+    // getUsersList()
+    fetch('http://localhost:3001/test')
+      .then(res => res.json())
+      .then(result => console.log(result))
+  }, []);
 
   return <Fragment>
     {
@@ -148,8 +164,10 @@ function App() {
 
         <Card>
           {
-            users.length !== 0 ? <List datas={users} deleteHandler={deleteHandler} editHandler={editHandler} /> :
-              <Button val="Хэрэглэгчийн дата авах" bg='red' type='normal' click={getUsersList} />
+            users && <List datas={users} deleteHandler={deleteHandler} editHandler={editHandler} />
+          }
+          {
+            errorMessage && <p>{errorMessage}</p>
           }
         </Card>
 
