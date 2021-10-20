@@ -1,14 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
+const bp = require('body-parser');
 const app = express();
+
+const userRouter = require('./routes/userRouter');
 
 
 app.use(cors());
+app.use(bp.json())
+app.use(bp.urlencoded({extended: false}))
 
-app.get('/test', (req, res) => {
-    res.json({title: 'fhdsjkhfsdkj'})
-})
+app.use(userRouter)
 
 mongoose.connect('mongodb://localhost:27017/react')
     .then(result => {

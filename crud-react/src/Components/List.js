@@ -6,9 +6,9 @@ const List = props => {
     return <ul>
         {
             props.datas.map(data => (
-                <ListItem userId={data.id} key={`list-${data.id}`} list={data.username}>
-                    <Button val={<MdEdit />} bg='gray' click={() => props.editHandler(data.id)} />
-                    <Button val={<RiDeleteBin5Line />} bg='red' click={() => props.deleteHandler(data.id)} />
+                <ListItem userId={data._id} key={`list-${data._id}`} list={data.username}>
+                    <Button val={<MdEdit />} bg='gray' click={() => props.editHandler(data._id)} />
+                    <Button val={<RiDeleteBin5Line />} bg='red' click={() => props.deleteHandler(data._id)} />
                 </ListItem>
             ))
         }
