@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
+import swal from '@sweetalert/with-react';
 import ReactDOM from 'react-dom';
 import Navigation from "./Components/Navigation";
-import Container from './Components/Component';
+import Container from './Components/Container';
 import Form from './Components/Form';
 import Card from './Components/Card';
 import Label from './Components/Label';
@@ -23,6 +24,7 @@ function App() {
   const [errorTitle, setErrorTitle] = useState('');
   const [errorMessage, SetErrorMessage] = useState('');
   const [error, setError] = useState(false);
+  const [updated, setUpdated] = useState(false)
 
   const submitHandler = e => {
     e.preventDefault();
@@ -47,13 +49,17 @@ function App() {
           }
           return response.json()
         })
-        .then(result => alert(result.message))
+        .then(result => swal(result.message))
         .catch(err => {
-          alert(err.message)
+          swal(err.message)
         })
 
-      console.log(user)
+      // console.log(user)
       resetForm();
+      setUpdated(true);
+      setTimeout(() => {
+        setUpdated(false)
+      }, 100)
     } else {
       setError(true);
       setErrorTitle('Алдаа гарлаа');
@@ -62,9 +68,30 @@ function App() {
   }
 
   const deleteHandler = id => {
-    setUsers(users.filter(user => user.id !== id))
+
+    fetch('http://localhost:3001/deleteUser', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ _id: id })
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw Error('Алдаа гарлаа')
+        }
+        return res.json()
+      })
+      .then(result => {
+        swal(result.message)
+      })
+      .catch(err => swal(err.message))
     setEditMode(false);
     resetForm();
+    setUpdated(true);
+    setTimeout(() => {
+      setUpdated(false)
+    }, 100)
   }
 
   const editHandler = id => {
@@ -92,20 +119,25 @@ function App() {
       },
       body: JSON.stringify(updatedUser)
     })
-    .then(response => {
-      if(!response.ok){
-        throw Error('Мэдээллийг шинэчлэхэд алдаа гарлаа...')
-      }
-      return response.json();
-    })
-    .then(result => alert(result.message))
-    .catch(err => alert(err.message))
+      .then(response => {
+        if (!response.ok) {
+          throw Error('Мэдээллийг шинэчлэхэд алдаа гарлаа...')
+        }
+        return response.json();
+      })
+      .then(result => swal(result.message))
+      .catch(err => swal(err.message))
     setEditMode(false);
     resetForm();
+    setUpdated(true);
+    setTimeout(() => {
+      setUpdated(false)
+    }, 100)
   }
 
   const hideModalHandler = () => {
-    setError(false)
+    setError(false);
+    SetErrorMessage(null)
   }
 
   function resetForm() {
@@ -121,7 +153,7 @@ function App() {
       .then(result => {
         setUsers(result);
       })
-  }, [users]);
+  }, [updated]);
 
   return <Fragment>
     {
@@ -181,9 +213,6 @@ function App() {
         <Card>
           {
             users && <List datas={users} deleteHandler={deleteHandler} editHandler={editHandler} />
-          }
-          {
-            errorMessage && <p>{errorMessage}</p>
           }
         </Card>
 
