@@ -27,13 +27,32 @@ function App() {
   const submitHandler = e => {
     e.preventDefault();
     if (username.trim() !== '' && email.trim() !== '' && number.trim() !== '' && password.trim() !== '') {
-      setUsers([...users, {
+      const user = {
         username: username,
         email: email,
         number: number,
-        password: password,
-        id: +Math.random().toString().split('.')[1]
-      }]);
+        password: password
+      }
+
+      fetch('http://localhost:3001/register', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw Error('Хэрэглэгч бүртгэхэд алдаа гарлаа')
+          }
+          return response.json()
+        })
+        .then(result => alert(result.message))
+        .catch(err => {
+          alert(err.message)
+        })
+
+      console.log(user)
       resetForm();
     } else {
       setError(true);
@@ -49,7 +68,7 @@ function App() {
   }
 
   const editHandler = id => {
-    const updateUserInfo = users.find(user => user.id === id);
+    const updateUserInfo = users.find(user => user._id === id);
     setUsername(updateUserInfo.username);
     setEmail(updateUserInfo.email);
     setNumber(updateUserInfo.number);
@@ -59,39 +78,35 @@ function App() {
   }
 
   const updateHandler = id => {
-    const updateUserIndex = users.findIndex(user => user.id === id);
-    const updatedUserList = [...users];
-    updatedUserList[updateUserIndex] = {
+    const updatedUser = {
       username: username,
       email: email,
       number: number,
       password: password,
-      id: id
+      _id: id
     }
-
-    setUsers([...updatedUserList]);
+    fetch('http://localhost:3001/updateUser', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedUser)
+    })
+    .then(response => {
+      if(!response.ok){
+        throw Error('Мэдээллийг шинэчлэхэд алдаа гарлаа...')
+      }
+      return response.json();
+    })
+    .then(result => alert(result.message))
+    .catch(err => alert(err.message))
     setEditMode(false);
-    resetForm()
+    resetForm();
   }
 
   const hideModalHandler = () => {
     setError(false)
   }
-
-  // const getUsersList = async () => {
-  //   try {
-  //     const response = await fetch('https://jsonplaceholder.typicode.com/users');
-  //     console.log(response.status)
-  //     if(!response.ok){
-  //       throw Error('Уучлаарай сервертэй холбогдоход алдаа гарлаа')
-  //     }
-  //     const result = await response.json();
-  //     setUsers(result);
-  //     SetErrorMessage('');
-  //   } catch(err) {
-  //     SetErrorMessage(err.message);
-  //   }
-  // }
 
   function resetForm() {
     setUsername('');
@@ -101,11 +116,12 @@ function App() {
   }
 
   useEffect(() => {
-    // getUsersList()
-    fetch('http://localhost:3001/test')
+    fetch('http://localhost:3001/allUsers')
       .then(res => res.json())
-      .then(result => console.log(result))
-  }, []);
+      .then(result => {
+        setUsers(result);
+      })
+  }, [users]);
 
   return <Fragment>
     {
