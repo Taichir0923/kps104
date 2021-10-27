@@ -3,7 +3,7 @@ const Navigation = props => {
     return <ul className="flex list-none">
         {
             props.nav.map((list, index) => {
-                return <NavItem key={`list-${index}`} text={list} />
+                return <NavItem href={list.path} key={`list-${index}`} text={list.title} />
             })
         }
     </ul>

@@ -11,7 +11,16 @@ import Button from './Components/Button';
 import List from './Components/List';
 import Backdrop from './Components/Backdrop';
 
-const navigation = ["Home", "About", "Service", "Contact"];
+const navigation = [
+  {
+    title: 'Home',
+    path: '/'
+  },
+  {
+    title: 'Login',
+    path: '/login'
+  }
+];
 
 function App() {
   const [editMode, setEditMode] = useState(false);
