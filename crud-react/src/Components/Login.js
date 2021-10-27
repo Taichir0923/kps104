@@ -57,3 +57,14 @@ export default Login;
 // 2. Нийтлэл бичнэ.
 // 3. Timeline үүсгээд бүх нийтлэлч нарын нийтлэлийг харуулна
 // 4. Нийтлэлчийн профайл руу орох үед тухайн нийтлэлчийн нийтллэлүүд харагдана
+
+// useReducer, useContext hook
+// useSelector(state => state.loginReducer)
+// useDispatch()
+// reducer => state, action
+// action => type
+// Redux => state management
+// <Provider store={combineReducer()}>
+//      <App />
+//      <Login />
+// </Provider>
