@@ -1,0 +1,2 @@
+export const INCREASE_BY_ONE = "INCREASE_BY_ONE";
+export const DECREASE_BY_ONE = "DECREASE_BY_ONE";
