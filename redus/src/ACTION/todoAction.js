@@ -5,3 +5,17 @@ export const addTodo = todo => {
         payload: todo
     }
 }
+
+export const getTodo = id => {
+    return {
+        type: todoActionTypes.GET_TODO,
+        payload: id
+    }
+}
+
+export const editTodo = todo => {
+    return {
+        type: todoActionTypes.EDIT_TODO,
+        payload: todo
+    }
+}
