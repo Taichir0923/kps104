@@ -231,7 +231,3 @@ function App() {
 }
 
 export default App;
-
-
-// Гэрт fetch API ашиглан өгөгдөл татах
-// https://jsonplaceholder.typicode.com/users

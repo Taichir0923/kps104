@@ -32,7 +32,6 @@ const Login = ({history}) => {
         } catch(err){
             alert(err.message);
         }
-
     }
 
     return <div className="w-full h-screen flex items-center justify-center">
