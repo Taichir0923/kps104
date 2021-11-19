@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital@1&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.header {
+    background-color: white;
+    padding: 0 2rem;
+}
+
+.sider {
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    .menuItem {
+        a {
+            color: #606060;
+        }
+        &:hover {
+            a {
+                color: white !important;
+                font-weight: 500;
+            }
+            p {
+                color: white;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.active {
+    background-color: #047857;
+    color: white !important;
+    a {
+        color: white !important;
+    }
+}
